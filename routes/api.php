@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\MagicGatherController;
+use App\Http\Controllers\API\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+
+Route::post('/register', [AuthController::class, 'register']);
+
+// User Login
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/cards', [MagicGatherController::class, 'getAllCards']);
+
+Route::post('/deck/add-card', [MagicGatherController::class, 'addCardToDeck']);
+Route::get('/deck/average-mana-cost', [MagicGatherController::class, 'calculateAverageManaCost']);
+Route::get('/cards/search', [MagicGatherController::class, 'searchCards']);
+
+
+Route::get('/formats', [MagicGatherController::class, 'getFormats']);
+Route::get('/sets', [MagicGatherController::class, 'getSets']);
+Route::get('/types', [MagicGatherController::class, 'getTypes']);
+Route::get('/supertypes', [MagicGatherController::class, 'getSupertypes']);
